@@ -128,3 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# db
+db/data/*
+db/pgadmin-data
+db/pgadmin-data/pgadmin4.db
