@@ -8,8 +8,9 @@
 -- These commands were put in this file only as a convenience.
 -- 
 -- object: proyecto_backend | type: DATABASE --
--- DROP DATABASE IF EXISTS proyecto_backend;
-CREATE DATABASE proyecto_backend;
+--DROP DATABASE IF EXISTS proyecto_backend WITH (FORCE);
+
+--CREATE DATABASE proyecto_backend;
 -- ddl-end --
 
 

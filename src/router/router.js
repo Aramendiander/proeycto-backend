@@ -1,5 +1,7 @@
 import router from "express";
 
 
-const app = router();
+const router = router();
+
+router.Request("/", authRouter);
 
