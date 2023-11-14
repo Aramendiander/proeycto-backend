@@ -26,7 +26,7 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.get("/",isAuthenticated,(req,res)=>{
+app.get("/",(req,res)=>{
     res.render("home");
 });
 

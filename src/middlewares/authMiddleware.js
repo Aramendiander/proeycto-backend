@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import adminModel from "../models/adminModel.js";
 
 
 const isAuthenticated = (req,res,next) => 

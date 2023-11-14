@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import cochesModel from "../../models/cochesModel.js";
-import adminModel from "../../models/adminModel.js";
 
 
 const login = async(req,res) => {

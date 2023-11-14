@@ -1,7 +1,13 @@
-import router from "express";
+import { Router } from "express";
+
+import authRouter from "./authRouter.js";
 
 
-const router = router();
+const router = Router();
 
-router.Request("/", authRouter);
+//router.use("/multas", multasRouter);
 
+
+router.use("/",authRouter);
+
+export default router;

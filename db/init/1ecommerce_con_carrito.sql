@@ -13,6 +13,16 @@
 -- ddl-end --
 
 
+-- object: public.category | type: TABLE --
+-- DROP TABLE IF EXISTS public.category CASCADE;
+CREATE TABLE public.category (
+	id smallserial NOT NULL,
+	name text NOT NULL,
+	CONSTRAINT category_pk PRIMARY KEY (id)
+);
+-- ddl-end --
+-- ddl-end --
+
 -- object: public.product | type: TABLE --
 -- DROP TABLE IF EXISTS public.product CASCADE;
 CREATE TABLE public.product (
@@ -23,17 +33,6 @@ CREATE TABLE public.product (
 	price float,
 	id_category smallint,
 	CONSTRAINT product_pk PRIMARY KEY (id)
-);
--- ddl-end --
-
--- ddl-end --
-
--- object: public.category | type: TABLE --
--- DROP TABLE IF EXISTS public.category CASCADE;
-CREATE TABLE public.category (
-	id smallserial NOT NULL,
-	name text,
-	CONSTRAINT category_pk PRIMARY KEY (id)
 );
 -- ddl-end --
 -- ddl-end --
@@ -54,6 +53,8 @@ CREATE TABLE public.cart_item (
 -- DROP TABLE IF EXISTS public.cart CASCADE;
 CREATE TABLE public.cart (
 	id smallserial NOT NULL,
+	buy_date date,
+	active boolean DEFAULT '0',
 	id_user smallint NOT NULL,
 	CONSTRAINT cart_pk PRIMARY KEY (id)
 );
@@ -66,22 +67,10 @@ CREATE TABLE public."user" (
 	id smallserial NOT NULL,
 	name varchar(30),
 	password varchar(100),
-	role varchar(10),
+	role varchar(10) DEFAULT user,
 	CONSTRAINT user_pk PRIMARY KEY (id)
 );
 -- ddl-end --
--- ddl-end --
-
--- object: user_fk | type: CONSTRAINT --
--- ALTER TABLE public.cart DROP CONSTRAINT IF EXISTS user_fk CASCADE;
-ALTER TABLE public.cart ADD CONSTRAINT user_fk FOREIGN KEY (id_user)
-REFERENCES public."user" (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
--- object: cart_uq | type: CONSTRAINT --
--- ALTER TABLE public.cart DROP CONSTRAINT IF EXISTS cart_uq CASCADE;
-ALTER TABLE public.cart ADD CONSTRAINT cart_uq UNIQUE (id_user);
 -- ddl-end --
 
 -- object: cart_fk | type: CONSTRAINT --
@@ -103,6 +92,18 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE public.product ADD CONSTRAINT category_fk FOREIGN KEY (id_category)
 REFERENCES public.category (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: user_fk | type: CONSTRAINT --
+-- ALTER TABLE public.cart DROP CONSTRAINT IF EXISTS user_fk CASCADE;
+ALTER TABLE public.cart ADD CONSTRAINT user_fk FOREIGN KEY (id_user)
+REFERENCES public."user" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: cart_uq | type: CONSTRAINT --
+-- ALTER TABLE public.cart DROP CONSTRAINT IF EXISTS cart_uq CASCADE;
+ALTER TABLE public.cart ADD CONSTRAINT cart_uq UNIQUE (id_user);
 -- ddl-end --
 
 

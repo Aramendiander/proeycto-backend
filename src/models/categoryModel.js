@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import sequelize from "../config/sequelize.js";
 
-const userModel = sequelize.define("user",
+const categoryModel = sequelize.define("category",
 {
     id:{
         type: DataTypes.SMALLINT,
@@ -11,16 +11,10 @@ const userModel = sequelize.define("user",
         autoIncrement:true,
     },
     name : {
-        type: DataTypes.STRING(30),
-    },
-    password: {
-        type: DataTypes.STRING(100),
-    },
-    role: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.TEXT,
     },
 })
 
 
 
-export default userModel;
+export default categoryModel;
