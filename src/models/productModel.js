@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 
 import sequelize from "../config/sequelize.js";
+import categoryModel from "../models/categoryModel.js"
+import cart_itemModel from "../models/cart_itemModel.js"
 
 const productModel = sequelize.define("product",
 {
@@ -30,6 +32,13 @@ const productModel = sequelize.define("product",
           }
     },
 })
+
+
+productModel.belongsTo(categoryModel, { foreignKey: 'id_category', targetKey: 'id' });
+categoryModel.hasMany(productModel, { foreignKey: 'id_category', as: 'products' });
+
+productModel.hasMany(cart_itemModel, { foreignKey: 'id_product', as: 'cart_items', onDelete: 'CASCADE' });
+cart_itemModel.belongsTo(productModel, { foreignKey: 'id_product', targetKey: 'id', onDelete: 'CASCADE' });
 
 
 

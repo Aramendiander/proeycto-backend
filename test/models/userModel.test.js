@@ -1,4 +1,8 @@
 import userModel from "../../src/models/userModel.js";
+import cartModel from "../../src/models/cartModel.js";
+import cart_itemModel from "../../src/models/cart_itemModel.js";
+import productModel from "../../src/models/productModel.js";
+import categoryModel from "../../src/models/categoryModel.js";
 
 describe("Tests de modelo de producto",() =>{
     let id = null;
@@ -21,6 +25,44 @@ describe("Tests de modelo de producto",() =>{
         expect(usuario[0]).toHaveProperty("name")
         expect(usuario[0]).toHaveProperty("password")
         expect(usuario[0]).toHaveProperty("role")
+    })
+
+    test("Conseguir todos los datos de un usario",async() =>{
+        const usuario = await userModel.findAll({
+            include:[
+                {
+                    model: cartModel,
+                    as: "cart",
+                    attributes: ['id','buy_date','active','id_user'],
+                    include:[
+                        {
+                            model: cart_itemModel,
+                            as: "cart_items",
+                            attributes: ['id','quantity','id_cart','id_product'],
+                            include:[
+                                {
+                                    model: productModel,
+                                    as: "product",
+                                    attributes: ['id','title','description','picture','price','id_category'],
+                                    include:[
+                                        {
+                                            model: categoryModel,
+                                            as: "category",
+                                            attributes: ['id','name'],
+                                        }
+                                    ]
+                                },
+                            ]
+                        },
+                    ]
+                },
+            ],
+            where: {
+                id: 2
+            }
+        });
+        expect(usuario.length).toBeGreaterThan(0);
+        console.log(usuario)
     })
 
     test("Conseguir un producto por ID", async () => {

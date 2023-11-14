@@ -26,3 +26,14 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
       - ./db/pgadmin-data:/var/lib/pgadmin
+  node:
+    build: .
+    container_name: node_proyecto_backend
+    restart: always
+    ports:
+      - ${APP_PORT}:3000
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules

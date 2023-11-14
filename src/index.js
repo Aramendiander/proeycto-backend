@@ -32,6 +32,6 @@ app.get("/",(req,res)=>{
 
 app.use("/",router);
 
-app.listen(3008,()=>{
-    console.log("servidor en marcha en el puerto 3008");
+app.listen(3000,()=>{
+    console.log("servidor en marcha en el puerto 3000");
 });
