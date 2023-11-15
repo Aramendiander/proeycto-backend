@@ -6,8 +6,8 @@ import {isAuthenticated,isAdmin} from "../middlewares/authMiddleware.js";
 const router = Router();
 
 
-router.get("/:id",isAuthenticated,(req,res)=>{
-    cochesViewController.getById(req,res);
+router.get("/:title",(req,res)=>{
+    productViewController.getByTitle(req,res);
 });
 
 export default router

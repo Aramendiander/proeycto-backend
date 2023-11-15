@@ -1,5 +1,6 @@
 body {
     font-family: 'roboto';
+    background-color:aqua;
 }
 
 h1,h2,h3 {
@@ -37,3 +38,60 @@ article.productlist {
     text-align: center;
 }
 
+main.singleproduct {
+    padding: 50px 200px;
+}
+
+article.productmain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 50px 100px;
+    border: 1px solid;
+
+}
+
+.productinfo {
+    width: 50%;
+}
+
+input[type="number"]{
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.productinfo form {
+        text-align: center;
+        display:flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+}
+
+.productinfo form * {
+    margin: 0px 10px;
+}
+
+
+
+.productinfo form input[type="submit"] {
+    height: 50px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.productinfo > .price {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}

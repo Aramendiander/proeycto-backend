@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    h1.register-title Register
+    if error 
+        p(class="error")=error 
+
+    div.div-ul
+     form.register-form(action="/register", method="post")
+        label.label-class(for="username") Username 
+        input.input-class(type="text", name="username", id="username")
+        label.label-class(for="password") Password
+        input.input-class(type="password", name="password", id="password")
+        label.label-class(for="passwordConfirm") Repeat Password
+        input.input-class(type="password", name="passwordConfirm", id="passwordConfirm")
+        input.button-class(type="submit", value="Register")

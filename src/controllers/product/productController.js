@@ -26,6 +26,23 @@ const getLastProducts = async() => {
     }
 }
 
+const getByTitle = async(title) => {
+    try{
+        const producto = await productController.findOne(
+            {
+                where: {
+                    title: {
+                        [Op.like]: `%${title}%`
+                    }
+                }
+            }
+        );
+        return [null, producto];
+    }catch(e){
+        return [e.message,null];
+    }
+}
+
 const getById = async (id) => {
     try {
         const parkings = await parkingModel.findByPk(id);
@@ -90,7 +107,7 @@ const remove = async (id) => {
 }
 
 
-function fecha(fecha) {
+/* function fecha(fecha) {
     // Transforma la fecha actual a formato Datetime de MYSQL
     fecha.setMinutes(0);
     fecha.setSeconds(0);
@@ -143,7 +160,7 @@ const desaparcar = async (id_coche) => {
         console.log(e)
     }
 }
-
+ */
 
 
 export {
@@ -152,10 +169,8 @@ export {
     create,
     update,
     remove,
-    aparcar,
-    desaparcar,
-    fecha,
-    getLastProducts
+    getLastProducts,
+    getByTitle,
 };
 
 
@@ -166,8 +181,6 @@ export default {
     create,
     update,
     remove,
-    aparcar,
-    desaparcar,
-    fecha,
     getLastProducts,
+    getByTitle,
 };

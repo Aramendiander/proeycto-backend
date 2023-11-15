@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+    h1.login-title Login
+    if error 
+        p(class="error")= error
+    div.div-ul
+        form.login-form(action="/login", method="post")
+            label.label-class(for="username") Username
+            input.input-class(type="text", name="username", id="username")
+            label.label-class(for="password") Password
+            input.input-class(type="password", name="password", id="password")
+            input.button-class(type="submit", value="Login")
+            
+    div.register-link
+        p Don't have an account?
+        a(href="/register") Register

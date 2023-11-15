@@ -5,7 +5,8 @@ block content
         h1.home_title Comprar cosas
         article.productlist
             each product in products
-                div.product
-                    img(src=product.picture, alt="", srcset="")
-                    p.title= product.title
-                    p.price= product.price + '€'
+                a(href=`/${product.title}`) 
+                    div.product
+                        img(src=product.picture, alt="", srcset="")
+                        p.title= product.title
+                        p.price= product.price + '€'

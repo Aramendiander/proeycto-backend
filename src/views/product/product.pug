@@ -1,0 +1,16 @@
+extends ../layout
+
+block content 
+    if(product)
+        main.singleproduct
+            article.productmain 
+                div
+                    img(src=`${product.picture}`, alt="", srcset="")
+                div.productinfo
+                    h1= product.title
+                    p.price= product.price + '€'
+                    p.description= product.description
+                    form(action="#" method="post")
+                        label(for="quantity") Quantity: 
+                        input(type="number" name="quantity")
+                        input(type="submit" value="Add to cart")

@@ -1,23 +1,25 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import userModel from "../../models/userModel.js"
+import cartModel from "../../models/cartModel.js"
 
 
 const login = async(req,res) => {
-    const {name,password} = req.body;
+    const {username,password} = req.body;
     try{
-        const user = await userModel.findOne({where:{matricula:matricula}});
+        const user = await userModel.findOne({where:{name:username}});
         if(!user){
             throw new Error("credenciales incorrectas");
         }
         const hash = user.password;
 
         if(await bcrypt.compare(password,hash)){
-            req.session.id_coche = user.id_coche
-            req.session.user = user.matricula;
+            req.session.user_id = user.id
+            req.session.user_role = user.role;
         }    
     }
     catch(e){
+        console.log(e)
         const errorUri = encodeURIComponent("credenciales incorrectas");
         return res.redirect("/login?error="+errorUri);
     }
@@ -33,8 +35,8 @@ const loginForm = (req,res) => {
 }
 
 const register = async(req,res) => {
-    const {matricula,marca,modelo,password,passwordConfirm} = req.body;
-    if(!matricula || !marca || !modelo || !password || !passwordConfirm){
+    const {username,password,passwordConfirm} = req.body;
+    if(!username || !password || !passwordConfirm){
         const errorUri = encodeURIComponent("Todos los campos son obligatorios");
         return res.redirect("/register?error=" + errorUri);
     }
@@ -45,9 +47,9 @@ const register = async(req,res) => {
     }
 
     try{
-        const oldUser = await cochesModel.findOne({
+        const oldUser = await userModel.findOne({
             where:{
-                matricula:matricula
+                name:username
             }
         });
 
@@ -58,13 +60,16 @@ const register = async(req,res) => {
         }
         const hash = await bcrypt.hash(password,10);
         console.log(hash);
-        const newUser = await cochesModel.create({
-            matricula:matricula,
-            marca:marca,
-            modelo:modelo,
-            password:hash
+        const newUser = await userModel.create({
+            name:username,
+            password:hash,
+            role:"user"
         });
-        req.session.user = newUser.matricula;
+        const newCart = await cartModel.create({
+            active: 1,
+            id_user: newUser.id,
+        })
+        req.session.user = newUser.name;
         req.session.rol = newUser.rol;
         res.redirect("/login");
     }
