@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import session from "express-session";
 import { isAuthenticated } from "./middlewares/authMiddleware.js";
+import productModel from "./models/productModel.js"
+import productController from "./controllers/product/productController.js";
 
 import router from "./router/router.js";
 
@@ -26,9 +28,13 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.get("/",(req,res)=>{
-    res.render("home");
+app.get("/", async (req,res)=>{
+    const [error, products] = await productController.getLastProducts();
+    res.render("home",{error,products});
 });
+
+
+
 
 app.use("/",router);
 

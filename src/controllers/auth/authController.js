@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import userModel from "../../models/userModel.js"
 
 
 const login = async(req,res) => {
-    const {matricula,password} = req.body;
+    const {name,password} = req.body;
     try{
-        const user = await cochesModel.findOne({where:{matricula:matricula}});
+        const user = await userModel.findOne({where:{matricula:matricula}});
         if(!user){
             throw new Error("credenciales incorrectas");
         }
@@ -24,35 +25,11 @@ const login = async(req,res) => {
     res.redirect("/");
 }
 
-const adminLogin = async(req,res) => {
-    const {user,password} = req.body;
-    try{
-        const exist = await adminModel.findOne({where:{user:user}})
-        if(!exist){
-            throw new Error("credenciales incorrectas");
-        }
-        const hash = exist.password;
 
-        if(await bcrypt.compare(password,hash)){
-            req.session.user = exist.user;
-        }    
-    }
-    catch(e){
-        const errorUri = encodeURIComponent("credenciales incorrectas");
-        return res.redirect("/admin/login?error="+errorUri);
-    }
-     
-    res.redirect("/");
-}
 
 const loginForm = (req,res) => {
     const errorMessage = req.query.error
     res.render("auth/login",{error:errorMessage});
-}
-
-const adminLoginForm = (req,res) => {
-    const errorMessage = req.query.error
-    res.render("auth/adminLogin",{error:errorMessage});
 }
 
 const register = async(req,res) => {
@@ -113,7 +90,5 @@ export default{
     logout,
     register,
     registerForm,
-    adminLogin,
-    adminLoginForm,
 }
 

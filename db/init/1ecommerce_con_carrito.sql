@@ -100,10 +100,3 @@ ALTER TABLE public.cart ADD CONSTRAINT user_fk FOREIGN KEY (id_user)
 REFERENCES public."user" (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
-
--- object: cart_uq | type: CONSTRAINT --
--- ALTER TABLE public.cart DROP CONSTRAINT IF EXISTS cart_uq CASCADE;
-ALTER TABLE public.cart ADD CONSTRAINT cart_uq UNIQUE (id_user);
--- ddl-end --
-
-

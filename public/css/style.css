@@ -1,0 +1,39 @@
+body {
+    font-family: 'roboto';
+}
+
+h1,h2,h3 {
+    text-align:center;
+}
+
+article.productlist {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 120px;
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    background-color: skyblue;
+    padding: 25px;
+    
+}
+
+.product p {
+    margin-bottom: 0px;    
+}
+
+.product > .title {
+    height: 50px;
+    text-align: center;
+}
+
+.product > .price {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+

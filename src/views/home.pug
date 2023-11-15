@@ -1,4 +1,11 @@
 extends layout
 
 block content 
-    h1 Bienvenido
+    main
+        h1.home_title Comprar cosas
+        article.productlist
+            each product in products
+                div.product
+                    img(src=product.picture, alt="", srcset="")
+                    p.title= product.title
+                    p.price= product.price + '€'
