@@ -8,6 +8,20 @@ const addToCart = async (req, res) => {
     res.redirect("/")
 }
 
+const getCart = async (req, res) => {
+    const user_id = req.session.user_id
+    const [error,items] = await cartController.getCart(user_id);
+    let totalPrice = 0;
+    for (let item of items.cart_items) {
+        totalPrice += item.product.price
+        console.log(item.product.price)
+    }
+
+    res.render("cart/cart", { error, items, totalPrice });
+}
+
+
 export default {
     addToCart,
+    getCart,
 }

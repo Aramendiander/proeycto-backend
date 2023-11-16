@@ -1,0 +1,13 @@
+extends ../layout
+
+block content 
+    if(items)
+        h1 Your cart
+        each item in items.cart_items
+            div.item
+                img(src=`${item.product.picture}`, alt="", srcset="")
+                p= item.product.title
+                p= item.product.price
+        p Total price:
+        p= totalPrice
+        a(href="/payment") Checkout

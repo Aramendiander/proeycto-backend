@@ -1,6 +1,38 @@
 import cartModel from "../../models/cartModel.js";
 import cart_itemModel from "../../models/cart_itemModel.js";
+import productModel from "../../models/productModel.js";
 import { Op } from "sequelize";
+
+
+const getCart = async (id_user) => {
+    try {
+        const items = await cartModel.findOne({
+            where: {
+                id_user: id_user,
+                active: true
+            },
+            include: [
+                {
+                    model: cart_itemModel,
+                    as: "cart_items",
+                    attributes: ["id", "quantity", "id_cart", "id_product"],
+                    include: [
+                        {
+                            model: productModel,
+                            as: "product",
+                            attributes: ["id", "title", "description", "picture", "price", "id_category"]
+                        }
+                    ]
+                }
+            ]
+        })
+        return [null, items];
+    }
+    catch (e) {
+        console.log(e)
+        return [e.message, null];
+    }
+}
 
 
 const activeCartId = async (id_user) => {
@@ -8,7 +40,7 @@ const activeCartId = async (id_user) => {
         const activeCart = await cartModel.findOne({
             where: {
                 id_user: id_user,
-                active: true    
+                active: true
             }
         });
         if (activeCart) {
@@ -59,4 +91,5 @@ const addToCart = async (id_user, id_product, quantity) => {
 
 export default {
     addToCart,
+    getCart,
 }
