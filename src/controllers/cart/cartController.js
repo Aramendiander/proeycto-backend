@@ -88,6 +88,59 @@ const addToCart = async (id_user, id_product, quantity) => {
     }
 }
 
+const createNewCart = async (id_user) => {
+    try {
+        const newCart = await cartModel.create({
+            id_user: id_user,
+            active: true
+        })
+        return newCart;
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
+
+const purchase = async (id_user) => {
+    try {
+        const activeCart = await cartModel.findOne({
+            where: {
+                id_user: id_user,
+                active: true
+            },
+            include: [
+                {
+                    model: cart_itemModel,
+                    as: "cart_items",
+                    attributes: ["id", "quantity", "id_cart", "id_product"],
+                    include: [
+                        {
+                            model: productModel,
+                            as: "product",
+                            attributes: ["id", "title", "description", "picture", "price", "id_category"]
+                        }
+                    ]
+                }
+            ]
+        })
+        if (activeCart) {
+            activeCart.active = false;
+            activeCart.buy_date = moment().format('YYYY-MM-DD')
+            await activeCart.save()
+            await createNewCart(id_user) // TODO: Check this
+            return activeCart;
+        }
+        else {
+            return createNewCart(id_user)
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return [e,null];
+    }
+}
+
 
 export default {
     addToCart,

@@ -4,6 +4,7 @@ import session from "express-session";
 import { isAuthenticated } from "./middlewares/authMiddleware.js";
 import productModel from "./models/productModel.js"
 import productController from "./controllers/product/productController.js";
+import moment from "moment";
 
 import router from "./router/router.js";
 
@@ -32,8 +33,6 @@ app.get("/", async (req,res)=>{
     const [error, products] = await productController.getLastProducts();
     res.render("home",{error,products});
 });
-
-
 
 
 app.use("/",router);
