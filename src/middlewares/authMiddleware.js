@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 const isAuthenticated = (req,res,next) => 
 {
-    if(req.session.user){
+    if(req.session.user_id){
         next();
     }
     else{
@@ -12,7 +12,7 @@ const isAuthenticated = (req,res,next) =>
 }
 
 const isAdmin = async (req,res,next) =>{
-    if(req.session.user !== "admin"){
+    if(req.session.role !== "admin"){
             res.redirect("/admin/login");
     }
     else{
