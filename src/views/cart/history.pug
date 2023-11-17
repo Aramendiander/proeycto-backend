@@ -1,0 +1,8 @@
+extends ../layout
+
+block content 
+    if(cartHistory)
+            h1 Your cart
+            each item in cartHistory
+                form(action=`/cart/history/${item.id}`) 
+                    input(type="submit" value=`${item.buy_date}`)

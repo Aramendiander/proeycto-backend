@@ -1,0 +1,11 @@
+extends ../layout
+
+block content 
+    each cart in carts 
+        each cart_item in cart.cart_items 
+            div
+                img(src=`${cart_item.product.picture}`, alt="")
+            div
+                p= cart_item.product.title
+                p= cart_item.product.price
+                p= cart_item.quantity

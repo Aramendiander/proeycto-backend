@@ -14,4 +14,16 @@ router.post("/addToCart", isAuthenticated, (req,res)=>{
     cartViewController.addToCart(req,res);
 });
 
+router.post("/purchase", isAuthenticated, (req,res)=>{
+    cartViewController.purchase(req,res);
+});
+
+router.get("/history", isAuthenticated, (req,res)=>{
+    cartViewController.cartHistory(req,res);
+})
+
+router.get("/history/:id",(req,res)=>{
+    cartViewController.getCartById(req,res);
+})
+
 export default router

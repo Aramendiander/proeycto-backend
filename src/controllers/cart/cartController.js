@@ -2,6 +2,7 @@ import cartModel from "../../models/cartModel.js";
 import cart_itemModel from "../../models/cart_itemModel.js";
 import productModel from "../../models/productModel.js";
 import { Op } from "sequelize";
+import moment from "moment"
 
 
 const getCart = async (id_user) => {
@@ -102,12 +103,33 @@ const createNewCart = async (id_user) => {
 }
 
 
+
 const purchase = async (id_user) => {
     try {
         const activeCart = await cartModel.findOne({
             where: {
                 id_user: id_user,
                 active: true
+            }
+        })
+        activeCart.active = false;
+        activeCart.buy_date = moment().format('YYYY-MM-DD')
+        await activeCart.save()
+        await createNewCart(id_user)
+        return [null,activeCart];
+    }
+    catch (e) {
+        console.log(e)
+        return [e, null];
+    }
+}
+
+const cartHistory = async (id_user) => {
+    try {
+        const cartHistory = await cartModel.findAll({
+            where: {
+                id_user: id_user,
+                active: false
             },
             include: [
                 {
@@ -124,25 +146,49 @@ const purchase = async (id_user) => {
                 }
             ]
         })
-        if (activeCart) {
-            activeCart.active = false;
-            activeCart.buy_date = moment().format('YYYY-MM-DD')
-            await activeCart.save()
-            await createNewCart(id_user) // TODO: Check this
-            return activeCart;
-        }
-        else {
-            return createNewCart(id_user)
-        }
+        return [null, cartHistory];
+    }
+    catch(e){
+        console.log(e)
+        return [e,null]
+    }
+}
+
+const getCartById = async (id_cart) => {
+    try {
+        const cart = await cartModel.findAll({
+            where: {
+                id: id_cart
+            },
+            include: [
+                {
+                    model: cart_itemModel,
+                    as: "cart_items",
+                    attributes: ["id", "quantity", "id_cart", "id_product"],
+                    include: [
+                        {
+                            model: productModel,
+                            as: "product",
+                            attributes: ["id", "title", "description", "picture", "price", "id_category"]
+                        }
+                    ]
+                }
+            ]
+        })
+        return [null, cart];
     }
     catch (e) {
         console.log(e)
-        return [e,null];
+        return [e, null];
     }
 }
+
 
 
 export default {
     addToCart,
     getCart,
+    purchase,
+    cartHistory,
+    getCartById,
 }

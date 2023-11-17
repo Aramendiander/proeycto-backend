@@ -17,11 +17,35 @@ const getCart = async (req, res) => {
         console.log(item.product.price)
     }
 
-    res.render("cart/cart", { error, items, totalPrice });
+    res.render("cart/cart", { error, items, totalPrice, user_id });
+}
+
+const purchase = async (req, res) => {
+    const user_id = req.session.user_id
+    const [error,items] = await cartController.purchase(user_id);
+    res.redirect("/thanks");
+}
+
+const cartHistory = async (req, res) => {
+    const user_id = req.session.user_id
+    const [error,cartHistory] = await cartController.cartHistory(user_id);
+    res.render("cart/history", { error, cartHistory });
+}
+
+const getCartById = async (req, res) => {
+    const cart_id = req.params.id
+    const [error,carts] = await cartController.getCartById(cart_id);
+    carts.forEach(cartItem => {
+        console.log(cartItem.cart_items)
+    })
+    res.render("cart/historycart", { error, carts });
 }
 
 
 export default {
     addToCart,
     getCart,
+    purchase,
+    cartHistory,
+    getCartById,
 }
