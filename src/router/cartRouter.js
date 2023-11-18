@@ -26,4 +26,8 @@ router.get("/history/:id",(req,res)=>{
     cartViewController.getCartById(req,res);
 })
 
+router.post("/remove/:id",(req,res)=>{
+    cartViewController.removeItemFromCart(req,res);
+})
+
 export default router

@@ -9,15 +9,16 @@ const addToCart = async (req, res) => {
 }
 
 const getCart = async (req, res) => {
+    let finalPrice = 0
     const user_id = req.session.user_id
     const [error,items] = await cartController.getCart(user_id);
     let totalPrice = 0;
     for (let item of items.cart_items) {
         totalPrice += item.product.price
-        console.log(item.product.price)
+        finalPrice = totalPrice.toFixed(2)
     }
 
-    res.render("cart/cart", { error, items, totalPrice, user_id });
+    res.render("cart/cart", { error, items, finalPrice, user_id });
 }
 
 const purchase = async (req, res) => {
@@ -42,10 +43,19 @@ const getCartById = async (req, res) => {
 }
 
 
+const removeItemFromCart = async (req, res) => {
+    const cart_itemId = req.body.cart_itemId
+    console.log(cart_itemId)
+    const id_user = req.session.user_id
+    const [error,item] = await cartController.removeItemFromCart(cart_itemId,id_user);
+    res.redirect("/cart")
+}
+
 export default {
     addToCart,
     getCart,
     purchase,
     cartHistory,
     getCartById,
+    removeItemFromCart,
 }

@@ -3,12 +3,19 @@ extends ../layout
 block content 
     if(items)
         h1 Your cart
+        - let totalPrice = 0 
         each item in items.cart_items
             div.item
                 img(src=`${item.product.picture}`, alt="", srcset="")
                 p= item.product.title
-                p= item.product.price
+                - const totalItemPrice = item.product.price * item.quantity
+                - totalPrice += totalItemPrice
+                p= `${totalItemPrice.toFixed(2)}€`
+                p= item.quantity
+                form(action=`/cart/remove/${item.id}` method="post")
+                    input(type="hidden", name="cart_itemId" value=`${item.id}`)
+                    input(type="submit", value="Remove item from cart")
         p Total price:
-        p= totalPrice
+        p= `${totalPrice.toFixed(2)}€` 
         form(action="/cart/purchase" method="post")
             input(type="submit" value="Buy")

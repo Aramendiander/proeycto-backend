@@ -95,3 +95,10 @@ input::-webkit-inner-spin-button {
     font-weight: 700;
     text-align: center;
 }
+
+.thanks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

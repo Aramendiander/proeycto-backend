@@ -183,6 +183,25 @@ const getCartById = async (id_cart) => {
     }
 }
 
+const removeItemFromCart = async (cart_itemId,id_user) => {
+    try {
+        const activeCart = await activeCartId(id_user)
+        const cartItem = await cart_itemModel.findOne({
+            where: {
+                id: cart_itemId,
+                id_cart: activeCart
+            }
+        })
+        let result = cartItem
+        cartItem.destroy();
+        return [null,result];
+    }
+    catch(e){
+        console.log(e)
+        return [e,null]
+    }
+}
+
 
 
 export default {
@@ -191,4 +210,5 @@ export default {
     purchase,
     cartHistory,
     getCartById,
+    removeItemFromCart,
 }
