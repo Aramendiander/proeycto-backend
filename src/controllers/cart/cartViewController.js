@@ -36,16 +36,12 @@ const cartHistory = async (req, res) => {
 const getCartById = async (req, res) => {
     const cart_id = req.params.id
     const [error,carts] = await cartController.getCartById(cart_id);
-    carts.forEach(cartItem => {
-        console.log(cartItem.cart_items)
-    })
     res.render("cart/historycart", { error, carts });
 }
 
 
 const removeItemFromCart = async (req, res) => {
     const cart_itemId = req.body.cart_itemId
-    console.log(cart_itemId)
     const id_user = req.session.user_id
     const [error,item] = await cartController.removeItemFromCart(cart_itemId,id_user);
     res.redirect("/cart")

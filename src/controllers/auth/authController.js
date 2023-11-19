@@ -55,12 +55,10 @@ const register = async(req,res) => {
         });
 
         if(oldUser){
-            console.log("oldUser:",oldUser);
             const errorUri = encodeURIComponent("El usuario ya existe");
             return res.redirect("/register?error=" + errorUri);
         }
         const hash = await bcrypt.hash(password,10);
-        console.log(hash);
         const newUser = await userModel.create({
             name:username,
             password:hash,

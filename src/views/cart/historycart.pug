@@ -1,11 +1,13 @@
 extends ../layout
 
 block content 
-    each cart in carts 
-        each cart_item in cart.cart_items 
-            div
-                img(src=`${cart_item.product.picture}`, alt="")
-            div
-                p= cart_item.product.title
-                p= cart_item.product.price
-                p= cart_item.quantity
+    main.history
+        each cart in carts 
+            each cart_item in cart.cart_items 
+                article.historyitem
+                    div.historypic
+                        img(src=`${cart_item.product.picture}`, alt="")
+                    div.historyinfo
+                        p= cart_item.product.title
+                        p= "Total cost: " + cart_item.product.price + "€"
+                        p= "Amount bough: " + cart_item.quantity

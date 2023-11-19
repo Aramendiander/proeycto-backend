@@ -29,7 +29,10 @@ article.productlist {
 .product img{
     display: block;
     margin: auto;
+    width: 300px;
+    height: 300px;
 }
+
 
 .product p {
     margin-bottom: 0px;    
@@ -137,13 +140,29 @@ header .menu {
     padding: 15px;
 }
 
+.navbar {
+    width: 100%;
+}
+
+.navul {
+    width:100%;
+    display:flex;
+    justify-content: space-around;
+    margin-bottom:0px;
+}
+
+.menu-item {
+    list-style: none;
+    display:inline;
+}
+
 .d-flex {
     width: 50%;
     margin-left: 20px;
     margin: 0px auto;
 }
 
-.cart {
+i.fa-solid.fa-cart-shopping {
     margin: 0px 20px 0px 50px;
     font-size:25px;
 }
@@ -163,4 +182,60 @@ header .menu {
     margin: 0;
     margin-right: 5px;
     height: 35px;
+}
+
+main.history {
+    width: 75%;
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.historyitem {
+    width: 100%;
+    display:flex;
+    align-items: center;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+.historypic {
+    width: 25%;
+}
+
+.historyinfo {
+    width: 75%;
+}
+
+.item {
+    width: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    margin: 20px 0px;
+}
+
+main.cart {
+    padding: 50px 250px;
+}
+
+.totalprice {
+    display: flex;
+    align-items: center;
+}
+
+.totalprice p {
+    font-size: 30px;
+}
+
+.totalprice input {
+    font-size: 20px;
+    margin-left: 50px;
+    height: 75px;
+    width: 150px;
+}
+
+.cartpic {
+    width: 25%
 }

@@ -3,20 +3,27 @@ extends ../layout
 block content 
     a(href="/cart/history") Purchase History
     if(items)
-        h1 Your cart
-        - let totalPrice = 0 
-        each item in items.cart_items
-            div.item
-                img(src=`${item.product.picture}`, alt="", srcset="")
-                p= item.product.title
-                - const totalItemPrice = item.product.price * item.quantity
-                - totalPrice += totalItemPrice
-                p= `${totalItemPrice.toFixed(2)}€`
-                p= item.quantity
-                form(action=`/cart/remove/${item.id}` method="post")
-                    input(type="hidden", name="cart_itemId" value=`${item.id}`)
-                    input(type="submit", value="Remove item from cart")
-        p Total price:
-        p= `${totalPrice.toFixed(2)}€` 
-        form.addform(action="/cart/purchase" method="post")
-            input(type="submit" value="Buy")
+        main.cart
+            h1 Your cart
+            - let totalPrice = 0 
+            each item in items.cart_items
+                div.item
+                    div.cartpic
+                        img(src=`${item.product.picture}`, alt="", srcset="")
+                    div.cartinfo
+                        p= item.product.title
+                        - const totalItemPrice = item.product.price * item.quantity
+                        - totalPrice += totalItemPrice
+                        p= `${totalItemPrice.toFixed(2)}€`
+                        p= "Amount: " + item.quantity
+                    div.removefromcart
+                        form(action=`/cart/remove/${item.id}` method="post")
+                            input(type="hidden", name="cart_itemId" value=`${item.id}`)
+                            input(type="submit", value="Remove item from cart")
+            div.totalprice
+                div
+                    p Total price:
+                    p= `${totalPrice.toFixed(2)}€` 
+                div
+                    form.addform(action="/cart/purchase" method="post")
+                        input(type="submit" value="Buy")

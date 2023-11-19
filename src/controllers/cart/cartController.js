@@ -83,7 +83,6 @@ const addToCart = async (id_user, id_product, quantity) => {
                 id_product: id_product,
                 quantity: quantity
             })
-            console.log(newItem)
             return newItem;
         }
     }
