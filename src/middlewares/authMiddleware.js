@@ -4,6 +4,19 @@ import jwt from "jsonwebtoken";
 const isAuthenticated = (req,res,next) => 
 {
     if(req.session.user_id){
+        res.locals.isAuthenticated = true;
+        res.locals.username = req.session.username;
+        next();
+    }
+    else{
+        res.locals.isAuthenticated = false;
+        next();
+    }
+}
+
+const authWall = (req,res,next) => 
+{
+    if(req.session.user_id){
         next();
     }
     else{
@@ -23,5 +36,6 @@ const isAdmin = async (req,res,next) =>{
 
 export  {
     isAuthenticated,
+    authWall,
     isAdmin
 };

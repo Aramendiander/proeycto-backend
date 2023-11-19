@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import productViewController from "../controllers/product/productViewController.js";
-import {isAuthenticated,isAdmin} from "../middlewares/authMiddleware.js";
+import {authWall,isAdmin} from "../middlewares/authMiddleware.js";
 
 const router = Router();
 

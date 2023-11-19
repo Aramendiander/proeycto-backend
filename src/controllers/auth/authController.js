@@ -16,6 +16,7 @@ const login = async(req,res) => {
         if(await bcrypt.compare(password,hash)){
             req.session.user_id = user.id
             req.session.user_role = user.role;
+            req.session.username = user.name;
         }    
     }
     catch(e){

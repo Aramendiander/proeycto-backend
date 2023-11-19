@@ -29,7 +29,7 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.get("/", async (req,res)=>{
+app.get("/", isAuthenticated, async (req,res)=>{
     const [error, products] = await productController.getLastProducts();
     res.render("home",{error,products});
 });

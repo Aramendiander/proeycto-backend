@@ -1,6 +1,7 @@
 extends ../layout
 
 block content 
+    a(href="/cart/history") Purchase History
     if(items)
         h1 Your cart
         - let totalPrice = 0 
@@ -17,5 +18,5 @@ block content
                     input(type="submit", value="Remove item from cart")
         p Total price:
         p= `${totalPrice.toFixed(2)}€` 
-        form(action="/cart/purchase" method="post")
+        form.addform(action="/cart/purchase" method="post")
             input(type="submit" value="Buy")

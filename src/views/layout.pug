@@ -5,14 +5,27 @@ html
     link(rel="preconnect", href="https://fonts.gstatic.com" crossorigin)
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto&display=swap")
     link(rel="stylesheet" href="/css/style.css")
-  body 
-    nav  
-        a(href="/") Home
-        a(href="/login") Login
-        a(href="/logout") Logout
-        a(href="/cart") Cart
-        a(href="/cart/history") History
-    block content 
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous")
+    script(src="https://kit.fontawesome.com/61afac2644.js" crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous")
+  body
+    header 
+      nav.top
+        form.d-flex
+          input.form-control.me-2(type="search" placeholder="Search", aria-label="Search")
+          button.btn.btn-outline-success(type="submit") Search
+        if isAuthenticated 
+          a.logout(href="/logout") Welcome #{username}, Log out?
+        else
+          a.login(href="/login") Log in
+        a.cart(href="/cart")
+          i(class="fa-solid fa-cart-shopping")
+      nav.navbar
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a(href="/") Home
+      
+  block content 
 
-    script(type="module", src="js/index.js")
-    block script
+  script(type="module", src="js/index.js")
+  block script

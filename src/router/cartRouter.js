@@ -1,24 +1,24 @@
 import { Router } from "express";
 
-import {isAuthenticated,isAdmin} from "../middlewares/authMiddleware.js";
+import {authWall,isAdmin} from "../middlewares/authMiddleware.js";
 import cartViewController from "../controllers/cart/cartViewController.js";
 
 const router = Router();
 
 
-router.get("/", isAuthenticated, (req,res)=>{
+router.get("/", authWall, (req,res)=>{
     cartViewController.getCart(req,res);
 })
 
-router.post("/addToCart", isAuthenticated, (req,res)=>{
+router.post("/addToCart", authWall, (req,res)=>{
     cartViewController.addToCart(req,res);
 });
 
-router.post("/purchase", isAuthenticated, (req,res)=>{
+router.post("/purchase", authWall, (req,res)=>{
     cartViewController.purchase(req,res);
 });
 
-router.get("/history", isAuthenticated, (req,res)=>{
+router.get("/history", authWall, (req,res)=>{
     cartViewController.cartHistory(req,res);
 })
 
