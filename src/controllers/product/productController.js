@@ -61,8 +61,6 @@ const getByCategory = async (category) => {
 
 
 export {
-    getAll,
-    getById,
     getLastProducts,
     getByTitle,
 };
@@ -70,8 +68,6 @@ export {
 
 
 export default {
-    getAll,
-    getById,
     getLastProducts,
     getByTitle,
     getByCategory,
