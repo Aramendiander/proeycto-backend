@@ -3,17 +3,6 @@ import categoryModel from "../../models/categoryModel.js";
 import productModel from "../../models/productModel.js"
 import {Op} from "sequelize";
 
-const getAll = async(q=null) => {
-    const options = {};
-
-    try{
-        const parking = await parkingModel.findAll(options);
-        return [null, parking];
-    }catch(e){
-        return [e.message,null];
-    }
-}
-
 const getLastProducts = async() => {
     try{
         const products = await productController.findAll({
@@ -45,15 +34,7 @@ const getByTitle = async(title) => {
     }
 }
 
-const getById = async (id) => {
-    try {
-        const parkings = await parkingModel.findByPk(id);
-        return [null, parkings];
-    }
-    catch (e) {
-        return [e.message, null];
-    }
-}
+
 
 
 const getByCategory = async (category) => { 
