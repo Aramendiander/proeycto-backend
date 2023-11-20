@@ -7,7 +7,11 @@ const router = Router();
 
 
 router.get("/:category",(req,res)=>{
-    productViewController.getByCategory(req,res,1);
+    productViewController.getByCategory(req,res);
+});
+
+router.get("/:category/json",(req,res)=>{
+    productViewController.getByCategoryApi(req,res);
 });
 
 

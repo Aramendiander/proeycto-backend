@@ -29,9 +29,21 @@ const getByCategory = async (req, res, ) => {
     }
 }
 
+const getByCategoryApi = async (req, res, ) => {
+    try {
+        const category = req.params.category;
+        const [error, products] = await productController.getByCategory(category);
+        res.json(products)
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
 
 
 export default {
     getByTitle,
-    getByCategory
+    getByCategory,
+    getByCategoryApi,
 };

@@ -34,6 +34,11 @@ app.get("/", isAuthenticated, async (req,res)=>{
     res.render("home",{error,products});
 });
 
+app.get("/json", async (req,res)=>{
+    const [error, products] = await productController.getLastProducts();
+    res.json(products)
+});
+
 
 app.use("/",router);
 
