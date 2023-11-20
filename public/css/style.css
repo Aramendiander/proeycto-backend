@@ -39,7 +39,7 @@ article.productlist {
 }
 
 .product .title {
-    height: 50px;
+    height: 80px;
     text-align: center;
 }
 
@@ -238,4 +238,16 @@ main.cart {
 
 .cartpic {
     width: 25%
+}
+
+@media screen and (max-width: 1550px) {
+    article.productlist {
+        grid-template-columns: repeat(2, 1fr);
+    }            
+}
+
+@media screen and (max-width: 500px) {
+    article.productlist {
+        grid-template-columns: repeat(1, 1fr);
+    }   
 }
